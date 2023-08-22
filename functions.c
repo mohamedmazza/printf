@@ -8,24 +8,25 @@
  * @width : width
  * @precesion : precision specification
  * @size; number of chars printe
- * */
-int print_char(va_list types, char buffer[], int flag, int width, int precision, int size)
+  */
+int print_char(va_list types, char buffer[], int flag,
+		int width, int precision, int size)
 {
-	char c;
+	char k = va_arg(types, int);
 
-	c = va_arg(types, int);
-	return (handle_write_char(c, buffer, flag, width,precision, size));
+	return (handle_write_char(k, buffer, flag, width, precision, size));
 }
-/*print_string - prints a string
+/*
+ * print_string - prints a string
  * @types: list a of argument
  * @buffer : buffer array to handle print
  * @flags; calcuke active flag
  * @width : width
  * @precesion : precision specification
  * @size; number of chars printe
- * */
-int print_string(va_list types, char buffer[], int flags, int width, int precision, int size)
-
+ */
+int print_string(va_list types, char buffer[], int flags,
+		int width, int precision, int size)
 {
 	int length = 0, i;
 	char *str = va_arg(types, char*);
@@ -61,13 +62,14 @@ int print_string(va_list types, char buffer[], int flags, int width, int precisi
 			for (i = width - length; i > 0; i--)
 				write(1, " ", 1);
 			write(1, &str[0], length);
-			return(width);
+			return (width);
 		}
 	}
 	return (write(1, str, length));
 }
 
-/*print_percent - prints a percent sign
+/*
+ * print_percent - prints a percent sign
  * @types: lista of arguments
  * @buffer: buffur array to handle print
  * @flags: calculates active flags
@@ -76,7 +78,8 @@ int print_string(va_list types, char buffer[], int flags, int width, int precisi
  * @size: size specifier
  * Return: Number of chars printed
  */
-int print_percent(va_list types, char buffer[], int flags, int width, int precision, int size)
+int print_percent(va_list types, char buffer[], int flags,
+		int width, int precision, int size)
 {
 	UNUSED(types);
 	UNUSED(buffer);
@@ -87,7 +90,8 @@ int print_percent(va_list types, char buffer[], int flags, int width, int precis
 	return (write(1, "%%", 1));
 }
 
-/*print_int - prints int
+/*
+ * print_int - prints int
  * @types: lista of arguments
  * @buffer: buffur array to handle print
  * @flags: calculates active flags
@@ -97,8 +101,8 @@ int print_percent(va_list types, char buffer[], int flags, int width, int precis
  * Return: Number of chars printed
  */
 
-int print_int(va_list types, char buffer[], int flags, int width, int precision, int size)
-
+int print_int(va_list types, char buffer[],
+		int flags, int width, int precision, int size)
 {
 	int i;
 
@@ -128,9 +132,10 @@ int print_int(va_list types, char buffer[], int flags, int width, int precision,
 	}
 	i++;
 
-	return ( write_number(is_negative, i, buffer, flags, width, precision,size));
+	return (write_number(is_negative, i, buffer, flags, width, precision, size));
 }
-/*print_binary - prints  binary
+/*
+ * print_binary - prints  binary
  * @types: lista of arguments
  * @buffer: buffur array to handle print
  * @flags: calculates active flags
@@ -139,28 +144,29 @@ int print_int(va_list types, char buffer[], int flags, int width, int precision,
  * @size: size specifier
  * Return: Number of chars printed
  */
-int print_binary(va_list types, char buffer[], int flags, int width, int precision, int size)
+int print_binary(va_list types, char buffer[], int flags,
+		int width, int precision, int size)
 {
-	unsigned int n, m, i, sum;
+	unsigned int e, s, i, sum;
 	unsigned int a[32];
 	int count;
 
 	UNUSED(buffer);
 	UNUSED(buffer);
-        UNUSED(flags);
-        UNUSED(width);
-        UNUSED(precision);
-        UNUSED(size);
+	UNUSED(flags);
+	UNUSED(width);
+	UNUSED(precision);
+	UNUSED(size);
 
-	n = va_arg(types, unsigned int);
-	m = 2147483648; /* (2 ^ 31) */
-	a[0] = n / m;
+	e = va_arg(types, unsigned int);
+	s = 2147483648; /* (2 ^ 31) */
+	a[0] = e / s;
 	for (i = 1; i < 32; i++)
 	{
-		m /= 2;
-		a[i] = (n / m) % 2;
+		s /= 2;
+		a[i] = (e / s) % 2;
 	}
-	for (i = 0, sum = 0,count = 0; i < 32; i++)
+	for (i = 0, sum = 0, count = 0; i < 32; i++)
 	{
 		sum += a[i];
 		if (sum || i == 31)
